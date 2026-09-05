@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Smart Calculator</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
+</head>
+<body>
+  <div class="page">
+    <header class="page-header">
+      <h1>Smart Calculator</h1>
+      <p class="tagline">Type it, or say it.</p>
+    </header>
+
+    <main class="layout">
+      <!-- Left: the physical-style calculator -->
+      <section class="chassis" aria-label="Calculator">
+        <div class="screen">
+          <div id="expression-line" class="expression-line"></div>
+          <div id="display" class="display">0</div>
+        </div>
+
+        <div class="keypad">
+          <button class="key key-fn" data-action="clear">C</button>
+          <button class="key key-fn" data-value="(">(</button>
+          <button class="key key-fn" data-value=")">)</button>
+          <button class="key key-op" data-value="%">%</button>
+
+          <button class="key" data-value="7">7</button>
+          <button class="key" data-value="8">8</button>
+          <button class="key" data-value="9">9</button>
+          <button class="key key-op" data-value="/">÷</button>
+
+          <button class="key" data-value="4">4</button>
+          <button class="key" data-value="5">5</button>
+          <button class="key" data-value="6">6</button>
+          <button class="key key-op" data-value="*">×</button>
+
+          <button class="key" data-value="1">1</button>
+          <button class="key" data-value="2">2</button>
+          <button class="key" data-value="3">3</button>
+          <button class="key key-op" data-value="-">&minus;</button>
+
+          <button class="key" data-value="0">0</button>
+          <button class="key" data-value=".">.</button>
+          <button class="key key-fn" data-action="backspace">&larr;</button>
+          <button class="key key-op" data-value="+">+</button>
+
+          <button class="key key-equals" data-action="equals">=</button>
+        </div>
+      </section>
+
+      <!-- Right: natural-language input + history + stats -->
+      <section class="side-panel">
+        <div class="panel ai-panel">
+          <h2>Ask in plain English</h2>
+          <form id="nl-form" class="nl-form">
+            <input
+              id="nl-input"
+              type="text"
+              placeholder="e.g. what is the square root of 81 plus 4"
+              autocomplete="off"
+            />
+            <button type="submit">Ask</button>
+          </form>
+          <p id="nl-parsed" class="nl-parsed"></p>
+        </div>
+
+        <div class="panel history-panel">
+          <div class="panel-header">
+            <h2>History</h2>
+            <button id="clear-history" class="text-btn">Clear</button>
+          </div>
+          <ul id="history-list" class="history-list"></ul>
+        </div>
+
+        <div class="panel stats-panel">
+          <h2>Usage stats</h2>
+          <p id="stats-summary" class="stats-summary">No calculations yet.</p>
+        </div>
+      </section>
+    </main>
+
+    <footer class="page-footer">
+      <p>Flask backend &middot; SQLite history &middot; rule-based NLP parser</p>
+    </footer>
+  </div>
+
+  <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
